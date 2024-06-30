@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  @apply bg-light-black;
+  @apply text-white;
+}
+
+input {
+  @apply border-green;
+  @apply rounded;
+  border-width: 1px;
+  padding-inline: 10px;
+  @apply text-green;
+  @apply bg-gray-900;
+  width: 100px;
+}
+
+input::placeholder{
+  @apply text-gray-400
+}
+
+.martingale-row:active, .martingale-row:focus, .martingale-row:hover {
+  @apply border-green;
+  @apply border;
+
+}
