@@ -9,7 +9,7 @@ const Header = () => {
       >
         <img
           className="header-logo"
-          src="/roulette-wheel.png"
+          src="/roulette-strategy-helper/roulette-wheel.png"
           alt="roulette wheel"
         />
         <h2 className="text-green text-2xl font-bold">
