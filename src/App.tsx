@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import MartingaleTable from './components/MartingaleTable';
 import debounce from 'lodash/debounce';
+import Header from './components/Header';
 
 function App() {
   const [bankroll, setBankroll] = useState(1000);
@@ -15,7 +16,8 @@ function App() {
 
   return (
     <div className="flex flex-col justify-center items-center w-full gap-5">
-      <h2 className="text-2xl font-bold text-center w-full">
+      <Header />
+      <h2 className="text-2xl font-bold text-green text-center w-full">
         Roulette Martingale Tables
       </h2>
       <div className='flex gap-4'>
@@ -24,7 +26,7 @@ function App() {
           type="text"
           name="bankroll"
           id="bankroll"
-          onChange={debounce(handleBankroll, 1000)}
+          onChange={debounce(handleBankroll, 500)}
           placeholder="1000"
         />
       </div>

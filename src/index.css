@@ -17,12 +17,17 @@ input {
   width: 100px;
 }
 
-input::placeholder{
-  @apply text-gray-400
+input::placeholder {
+  @apply text-gray-400;
 }
 
-.martingale-row:active, .martingale-row:focus, .martingale-row:hover {
+.focused-row,
+.martingale-row:hover {
   @apply border-green;
   @apply border;
+}
 
+.header-logo {
+  height: 25px;
+  width: 25px;
 }

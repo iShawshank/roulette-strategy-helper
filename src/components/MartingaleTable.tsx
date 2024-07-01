@@ -21,6 +21,9 @@ const MartingaleTable = ({
 }: IProps) => {
   const [unit, setUnit] = useState(1);
   const [rows, setRows] = useState<IRow[]>([]);
+  const [selectedRowId, setSelectedRowId] = useState<number | null>(
+    null
+  );
 
   // Handle change to unit
   const handleChange = (
@@ -31,20 +34,30 @@ const MartingaleTable = ({
     setUnit(Number(event.target.value));
   };
 
+  const handleSelectedRow = (index: number) => {
+    if (selectedRowId !== index) {
+      setSelectedRowId(index);
+    } else {
+      setSelectedRowId(null);
+    }
+  };
+
   useEffect(() => {
     setRows(calculateTable(unit, multiplier, win, lossMultiplier));
   }, [unit, multiplier, win, lossMultiplier]);
 
   return (
-    <div className="martingale-table max-w-2xl flex flex-col justify-center items-center p-4 border-green border rounded-xl">
-      <p className="text-xl font-bold">{tableName}</p>
+    <div
+      className={`martingale-table max-w-2xl flex flex-col justify-center items-center p-4 border-green border rounded-xl`}
+    >
+      <p className="text-xl font-bold mb-4">{tableName}</p>
       <div className="flex gap-4">
         <label htmlFor="unit">Unit size</label>
         <input
           type="text"
           name="unit"
           id="unit"
-          onChange={debounce(handleChange, 1000)}
+          onChange={debounce(handleChange, 500)}
           placeholder="1"
         />
       </div>
@@ -64,6 +77,8 @@ const MartingaleTable = ({
                 key={index}
                 index={index + 1}
                 bankroll={bankroll}
+                selectedId={selectedRowId}
+                handleClick={handleSelectedRow}
               />
             ))}
           </div>
