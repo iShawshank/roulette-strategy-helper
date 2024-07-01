@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  @apply bg-light-black;
+  @apply bg-black;
   @apply text-white;
 }
 
@@ -30,4 +30,12 @@ input::placeholder {
 .header-logo {
   height: 25px;
   width: 25px;
+}
+
+.link {
+  padding-inline: 40px;
+}
+
+.header-title {
+  width: 450px;
 }
