@@ -6,7 +6,7 @@ interface IProps {
   index: number;
   bankroll: number;
   handleClick: (index: number) => void;
-  selectedId: number;
+  selectedId: number | null;
 }
 
 const MartingaleRow = ({
@@ -16,7 +16,8 @@ const MartingaleRow = ({
   selectedId,
   handleClick,
 }: IProps) => {
-  const isTooMuch = row.loss + row.currentBet > bankroll ? true : false;
+  const isTooMuch =
+    row.loss + row.currentBet > bankroll ? true : false;
 
   const selected = selectedId === index;
 
