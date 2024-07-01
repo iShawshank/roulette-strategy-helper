@@ -9,7 +9,6 @@ const Home = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
-    console.log(event.target.value);
     setBankroll(Number(event.target.value));
   };
 
@@ -18,7 +17,7 @@ const Home = () => {
       <h2 className="text-xl font-semibold text-green text-center w-full">
         Roulette Martingale Tables
       </h2>
-      <div className='flex gap-4'>
+      <div className="flex gap-4">
         <label htmlFor="bankroll">Bankroll</label>
         <input
           type="text"
@@ -28,7 +27,7 @@ const Home = () => {
           placeholder="1000"
         />
       </div>
-      <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <MartingaleTable
           tableName="9 streets"
           multiplier={9}
@@ -52,7 +51,7 @@ const Home = () => {
         />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
