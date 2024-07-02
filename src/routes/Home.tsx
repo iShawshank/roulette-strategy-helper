@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 
 const Home = () => {
   const [bankroll, setBankroll] = useState(
-    Number(Cookies.get('bankroll')) ?? 1000
+    Number(Cookies.get('bankroll') ?? 1000)
   );
 
   const handleBankroll = (
