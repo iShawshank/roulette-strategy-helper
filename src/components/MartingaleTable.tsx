@@ -3,6 +3,7 @@ import debounce from 'lodash/debounce';
 import MartingaleRow from './MartingaleRow';
 import { calculateTable } from '../utils/martingale';
 import { IRow } from '../interfaces/Row';
+import Cookies from 'js-cookie';
 
 interface IProps {
   tableName: string;
@@ -10,6 +11,7 @@ interface IProps {
   win: number;
   lossMultiplier?: number;
   bankroll: number;
+  unitCookie: string;
 }
 
 const MartingaleTable = ({
@@ -18,8 +20,11 @@ const MartingaleTable = ({
   win = 1,
   lossMultiplier = 2,
   bankroll,
+  unitCookie,
 }: IProps) => {
-  const [unit, setUnit] = useState(1);
+  const [unit, setUnit] = useState(
+    Number(Cookies.get(unitCookie) ?? 1)
+  );
   const [rows, setRows] = useState<IRow[]>([]);
   const [selectedRowId, setSelectedRowId] = useState<number | null>(
     null
@@ -30,7 +35,8 @@ const MartingaleTable = ({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
-    console.log(event.target.value);
+    Cookies.set(unitCookie, event.target.value);
+
     setUnit(Number(event.target.value));
   };
 
@@ -58,7 +64,7 @@ const MartingaleTable = ({
           name="unit"
           id="unit"
           onChange={debounce(handleChange, 500)}
-          placeholder="1"
+          placeholder={unit.toString()}
         />
       </div>
       {rows.length && (

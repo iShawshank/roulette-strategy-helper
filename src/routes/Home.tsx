@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import MartingaleTable from '../components/MartingaleTable';
 import debounce from 'lodash/debounce';
+import Cookies from 'js-cookie';
 
 const Home = () => {
-  const [bankroll, setBankroll] = useState(1000);
+  const [bankroll, setBankroll] = useState(
+    Number(Cookies.get('bankroll')) ?? 1000
+  );
 
   const handleBankroll = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
+    Cookies.set('bankroll', event.target.value);
     setBankroll(Number(event.target.value));
   };
 
@@ -24,7 +28,7 @@ const Home = () => {
           name="bankroll"
           id="bankroll"
           onChange={debounce(handleBankroll, 500)}
-          placeholder="1000"
+          placeholder={bankroll.toString()}
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -33,6 +37,7 @@ const Home = () => {
           multiplier={9}
           win={3}
           bankroll={bankroll}
+          unitCookie="9-streets"
         />
 
         <MartingaleTable
@@ -41,6 +46,7 @@ const Home = () => {
           win={1}
           lossMultiplier={3}
           bankroll={bankroll}
+          unitCookie="double-streets"
         />
 
         <MartingaleTable
@@ -48,6 +54,7 @@ const Home = () => {
           multiplier={1}
           win={1}
           bankroll={bankroll}
+          unitCookie="one-to-one"
         />
       </div>
     </div>
