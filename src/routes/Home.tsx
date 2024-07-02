@@ -12,7 +12,7 @@ const Home = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
-    Cookies.set('bankroll', event.target.value);
+    Cookies.set('bankroll', event.target.value, { expires: 365 });
     setBankroll(Number(event.target.value));
   };
 

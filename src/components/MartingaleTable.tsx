@@ -35,7 +35,7 @@ const MartingaleTable = ({
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     event.preventDefault();
-    Cookies.set(unitCookie, event.target.value);
+    Cookies.set(unitCookie, event.target.value, { expires: 365 });
 
     setUnit(Number(event.target.value));
   };
