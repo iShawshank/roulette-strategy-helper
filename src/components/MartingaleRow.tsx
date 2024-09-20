@@ -6,6 +6,7 @@ interface IProps {
   bankroll: number;
   handleClick: (index: number) => void;
   selectedId: number | null;
+  showProfit: boolean;
 }
 
 const MartingaleRow = ({
@@ -14,6 +15,7 @@ const MartingaleRow = ({
   bankroll,
   selectedId,
   handleClick,
+  showProfit,
 }: IProps) => {
   const isTooMuch =
     row.loss + row.currentBet > bankroll ? true : false;
@@ -33,7 +35,7 @@ const MartingaleRow = ({
         {row.loss}
       </p>
       <p className={isTooMuch ? 'text-white' : 'text-green'}>
-        {row.profit}
+        {showProfit ? row.profit : '-'}
       </p>
       <p className="recover">{row.recover}</p>
     </div>

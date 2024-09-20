@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import debounce from 'lodash/debounce';
 import MartingaleRow from './MartingaleRow';
-import { calculateTable } from '../utils/martingale';
+import {
+  calculateTable,
+} from '../utils/martingale';
 import { IRow } from '../interfaces/Row';
 import Cookies from 'js-cookie';
 
@@ -12,6 +14,9 @@ interface IProps {
   lossMultiplier?: number;
   bankroll: number;
   unitCookie: string;
+  additionalUnit?: number;
+  showProfit?: boolean;
+  tenRows?: boolean;
 }
 
 const MartingaleTable = ({
@@ -21,6 +26,9 @@ const MartingaleTable = ({
   lossMultiplier = 2,
   bankroll,
   unitCookie,
+  additionalUnit = 0,
+  tenRows = false,
+  showProfit = true,
 }: IProps) => {
   const [unit, setUnit] = useState(
     Number(Cookies.get(unitCookie) ?? 1)
@@ -49,8 +57,35 @@ const MartingaleTable = ({
   };
 
   useEffect(() => {
-    setRows(calculateTable(unit, multiplier, win, lossMultiplier));
-  }, [unit, multiplier, win, lossMultiplier]);
+    if (tenRows) {
+      setRows(
+        calculateTenRowsTable(
+          unit,
+          multiplier,
+          win,
+          lossMultiplier,
+          additionalUnit
+        )
+      );
+    } else {
+      setRows(
+        calculateTable(
+          unit,
+          multiplier,
+          win,
+          lossMultiplier,
+          additionalUnit
+        )
+      );
+    }
+  }, [
+    unit,
+    multiplier,
+    win,
+    lossMultiplier,
+    tenRows,
+    additionalUnit,
+  ]);
 
   return (
     <div
@@ -85,6 +120,7 @@ const MartingaleTable = ({
                 bankroll={bankroll}
                 selectedId={selectedRowId}
                 handleClick={handleSelectedRow}
+                showProfit={showProfit}
               />
             ))}
           </div>

@@ -9,6 +9,7 @@ import {
 } from 'react-router-dom';
 import Home from './routes/Home.tsx';
 import Donate from './routes/Donate.tsx';
+import AllOnBlack from './routes/all-on-black.tsx';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <Home /> },
+      {
+        path: '/roulette-strategy-helper/aob',
+        element: <AllOnBlack />,
+      },
       {
         path: '/roulette-strategy-helper/donate',
         element: <Donate />,

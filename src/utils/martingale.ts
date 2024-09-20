@@ -6,7 +6,8 @@ export const calculateTable = (
   unit: number,
   multiplier: number,
   win: number,
-  lossMultiplier: number
+  lossMultiplier: number,
+  additionalUnit: number
 ): IRow[] => {
   const tableRows = [];
   let currentBet = unit * multiplier;
@@ -19,13 +20,14 @@ export const calculateTable = (
 
     tableRows.push({
       profit: Number(currentProfit.toFixed(2)),
-      currentBet: Number(currentBet),
+      currentBet: Number(currentBet.toFixed(2)),
       loss: Number(loss.toFixed(2)),
       recover: recover !== 0 && recover < 1 ? 1 : recover,
     });
     loss += currentBet;
-    currentBet *= lossMultiplier;
-    currentUnit *= lossMultiplier;
+    currentBet = currentBet * lossMultiplier + additionalUnit * unit;
+    currentUnit =
+      currentUnit * lossMultiplier + additionalUnit * unit;
   }
   return tableRows;
 };
