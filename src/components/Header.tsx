@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <div className="flex w-full bg-light-black border-green border-b-2 pb-2">
+    <div className="flex w-full bg-light-black border-green border-b-2 pb-2 sticky top-0 z-10 shadow-green shadow-md">
       <Link
         to="/roulette-strategy-helper/"
         className="header-title flex gap-2 pl-2 pt-2 items-center w-full"
@@ -12,8 +12,8 @@ const Header = () => {
           src="/roulette-strategy-helper/roulette-wheel.png"
           alt="roulette wheel"
         />
-        <h2 className="text-green text-2xl font-bold">
-          Roulette Strategies Helper
+        <h2 className="text-green text-xl xl:text-2xl font-bold">
+          Roulette Strategy Helper
         </h2>
       </Link>
       <div className="w-full justify-center items-center text-green text-xl divide-x-2 flex">

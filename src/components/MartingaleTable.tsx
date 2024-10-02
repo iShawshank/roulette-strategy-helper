@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import debounce from 'lodash/debounce';
 import MartingaleRow from './MartingaleRow';
-import {
-  calculateTable,
-} from '../utils/martingale';
+import { calculateTable } from '../utils/martingale';
 import { IRow } from '../interfaces/Row';
 import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   tableName: string;
@@ -17,6 +16,8 @@ interface IProps {
   additionalUnit?: number;
   showProfit?: boolean;
   tenRows?: boolean;
+  context?: string;
+  showGuide?: boolean;
 }
 
 const MartingaleTable = ({
@@ -29,6 +30,8 @@ const MartingaleTable = ({
   additionalUnit = 0,
   tenRows = false,
   showProfit = true,
+  context = '/roulette-strategy-helper/',
+  showGuide = false,
 }: IProps) => {
   const [unit, setUnit] = useState(
     Number(Cookies.get(unitCookie) ?? 1)
@@ -57,27 +60,15 @@ const MartingaleTable = ({
   };
 
   useEffect(() => {
-    if (tenRows) {
-      setRows(
-        calculateTenRowsTable(
-          unit,
-          multiplier,
-          win,
-          lossMultiplier,
-          additionalUnit
-        )
-      );
-    } else {
-      setRows(
-        calculateTable(
-          unit,
-          multiplier,
-          win,
-          lossMultiplier,
-          additionalUnit
-        )
-      );
-    }
+    setRows(
+      calculateTable(
+        unit,
+        multiplier,
+        win,
+        lossMultiplier,
+        additionalUnit
+      )
+    );
   }, [
     unit,
     multiplier,
@@ -89,18 +80,29 @@ const MartingaleTable = ({
 
   return (
     <div
-      className={`martingale-table max-w-2xl flex flex-col justify-center items-center p-4 border-green border rounded-xl`}
+      className={`martingale-table max-w-2xl flex flex-col justify-center items-center p-4 border-green border rounded-xl shadow-green shadow-md`}
     >
       <p className="text-xl font-bold mb-4">{tableName}</p>
+      {showGuide && (
+        <Link
+          to={`/roulette-strategy-helper/strategy/${unitCookie}`}
+          state={{ from: context }}
+          className="pb-4 cursor-pointer text-blue-400"
+        >
+          Detailed Strategy Guide
+        </Link>
+      )}
       <div className="flex gap-4">
-        <label htmlFor="unit">Unit size</label>
-        <input
-          type="text"
-          name="unit"
-          id="unit"
-          onChange={debounce(handleChange, 500)}
-          placeholder={unit.toString()}
-        />
+        <div className="flex gap-4">
+          <label htmlFor="unit">Unit size</label>
+          <input
+            type="text"
+            name="unit"
+            id="unit"
+            onChange={debounce(handleChange, 500)}
+            placeholder={unit.toString()}
+          />
+        </div>
       </div>
       {rows.length && (
         <div className="flex flex-col">
