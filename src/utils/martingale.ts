@@ -15,8 +15,10 @@ export const calculateTable = (
   let currentUnit = 1;
 
   for (let i = 1; i < MAX_ROWS; i++) {
+    const previousLoss = loss;
+    loss += currentBet;
     const currentProfit = unit * currentUnit * win;
-    const recover = Number((loss / currentProfit).toFixed(2));
+    const recover = Number((previousLoss / currentProfit).toFixed(2));
 
     tableRows.push({
       profit: Number(currentProfit.toFixed(2)),
@@ -24,7 +26,6 @@ export const calculateTable = (
       loss: Number(loss.toFixed(2)),
       recover: recover !== 0 && recover < 1 ? 1 : recover,
     });
-    loss += currentBet;
     currentBet = currentBet * lossMultiplier + additionalUnit * unit;
     currentUnit =
       currentUnit * lossMultiplier + additionalUnit * unit;

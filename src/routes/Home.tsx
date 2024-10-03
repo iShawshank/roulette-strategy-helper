@@ -41,22 +41,13 @@ const Home = () => {
           showGuide={true}
         />
         <MartingaleTable
-          tableName="5 Doublestreets (3x on loss)"
+          tableName="5 Double Streets"
           multiplier={5}
           win={1}
-          lossMultiplier={3}
           bankroll={bankroll}
           unitCookie="double-streets"
           showGuide={true}
-        />
-        <MartingaleTable
-          tableName="5 Doublestreets (2x on loss)"
-          multiplier={5}
-          win={1}
-          lossMultiplier={2}
-          bankroll={bankroll}
-          unitCookie="double-streets"
-          showGuide={true}
+          showLossMultiText={true}
         />
         <MartingaleTable
           tableName="Outside 1:1 bets"

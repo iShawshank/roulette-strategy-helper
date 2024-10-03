@@ -111,6 +111,9 @@ const Strategy = () => {
                         win={progression.win}
                         lossMultiplier={progression.lossMulti}
                         bankroll={bankroll}
+                        showLossMultiText={
+                          progression.showLossMulti ? true : false
+                        }
                       />
                     )
                   )}

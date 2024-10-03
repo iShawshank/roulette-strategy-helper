@@ -18,6 +18,7 @@ interface IProps {
   tenRows?: boolean;
   context?: string;
   showGuide?: boolean;
+  showLossMultiText?: boolean;
 }
 
 const MartingaleTable = ({
@@ -32,7 +33,12 @@ const MartingaleTable = ({
   showProfit = true,
   context = '/roulette-strategy-helper/',
   showGuide = false,
+  showLossMultiText = false,
 }: IProps) => {
+  const lossCookie = `${unitCookie}-loss-multi`;
+  const [lossMulti, setLossMulti] = useState(
+    Number(Cookies.get(lossCookie) ?? 2)
+  );
   const [unit, setUnit] = useState(
     Number(Cookies.get(unitCookie) ?? 1)
   );
@@ -51,6 +57,14 @@ const MartingaleTable = ({
     setUnit(Number(event.target.value));
   };
 
+  const handleLossMultiplieChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    event.preventDefault();
+    Cookies.set(lossCookie, event.target.value, { expires: 365 });
+    setLossMulti(Number(event.target.value));
+  };
+
   const handleSelectedRow = (index: number) => {
     if (selectedRowId !== index) {
       setSelectedRowId(index);
@@ -61,22 +75,9 @@ const MartingaleTable = ({
 
   useEffect(() => {
     setRows(
-      calculateTable(
-        unit,
-        multiplier,
-        win,
-        lossMultiplier,
-        additionalUnit
-      )
+      calculateTable(unit, multiplier, win, lossMulti, additionalUnit)
     );
-  }, [
-    unit,
-    multiplier,
-    win,
-    lossMultiplier,
-    tenRows,
-    additionalUnit,
-  ]);
+  }, [unit, multiplier, win, lossMulti, tenRows, additionalUnit]);
 
   return (
     <div
@@ -92,7 +93,19 @@ const MartingaleTable = ({
           Detailed Strategy Guide
         </Link>
       )}
-      <div className="flex gap-4">
+      <div className="flex gap-4 lg:gap-10">
+        {showLossMultiText && (
+          <div className="flex gap-4">
+            <label htmlFor="loss">Loss Multiplier</label>
+            <input
+              type="text"
+              name="loss"
+              id="loss"
+              onChange={debounce(handleLossMultiplieChange, 500)}
+              placeholder={lossMulti.toString()}
+            />
+          </div>
+        )}
         <div className="flex gap-4">
           <label htmlFor="unit">Unit size</label>
           <input
@@ -105,7 +118,7 @@ const MartingaleTable = ({
         </div>
       </div>
       {rows.length && (
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-5">
           <div className="w-full grid grid-cols-5 text-center">
             <p className="flex-wrap progression">Progressions</p>
             <p className="flex-wrap total-bet">Total Bet</p>

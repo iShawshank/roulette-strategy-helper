@@ -18,7 +18,7 @@ const MartingaleRow = ({
   showProfit,
 }: IProps) => {
   const isTooMuch =
-    row.loss + row.currentBet > bankroll ? true : false;
+    row.loss > bankroll ? true : false;
 
   const selected = selectedId === index;
 

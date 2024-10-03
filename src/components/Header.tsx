@@ -23,12 +23,12 @@ const Header = () => {
         >
           Home
         </Link>
-        <Link
+        {/* <Link
           className="link text-xl hidden sm:block"
           to="/roulette-strategy-helper/aob"
         >
           All On Black
-        </Link>
+        </Link> */}
         <Link
           className="link text-xl"
           to="/roulette-strategy-helper/donate"

@@ -9,6 +9,7 @@ export interface Progression {
   multi: number;
   win: number;
   lossMulti: number;
+  showLossMulti?: boolean;
 }
 
 export interface Strategy {
@@ -89,16 +90,11 @@ export const stratData = {
     ],
     progressions: [
       {
-        name: '5 Double Streets (3x multi on loss)',
-        multi: 5,
-        win: 1,
-        lossMulti: 3,
-      },
-      {
-        name: '5 Double Streets (2x multi on loss)',
+        name: '5 Double Streets',
         multi: 5,
         win: 1,
         lossMulti: 2,
+        showLossMulti: true,
       },
     ],
   },
