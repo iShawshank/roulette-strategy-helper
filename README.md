@@ -1,4 +1,4 @@
-# Golf Launch Monitor Averages
+# Roulette Strategy Helpers
 
 This application displays helpful tools for use with various Roulette strategies.
 
