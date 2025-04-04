@@ -2,6 +2,7 @@ import { useState } from 'react';
 import MartingaleTable from '../components/MartingaleTable';
 import debounce from 'lodash/debounce';
 import Cookies from 'js-cookie';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [bankroll, setBankroll] = useState(
@@ -47,7 +48,6 @@ const Home = () => {
           bankroll={bankroll}
           unitCookie="double-streets"
           showGuide={true}
-          showLossMultiText={true}
         />
         <MartingaleTable
           tableName="Outside 1:1 bets"
@@ -65,6 +65,13 @@ const Home = () => {
           unitCookie="one-to-one-plus-one"
         />
       </div>
+      <Link
+        to={`/roulette-strategy-helper/strategy/mickey-mouse`}
+        state={{ from: '/roulette-strategy-helper/' }}
+        className="mt-6 py-2 px-4 border-green text-green border-2 rounded-xl w-64 flex justify-center items-center"
+      >
+        Mickey Mouse Strat
+      </Link>
     </div>
   );
 };

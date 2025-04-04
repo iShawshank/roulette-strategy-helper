@@ -1,5 +1,6 @@
 import { Link, useLocation, useParams } from 'react-router-dom';
 import {
+  LossProgression,
   Progression,
   stratData,
   StratVariant,
@@ -11,6 +12,7 @@ import MartingaleTable from '../components/MartingaleTable';
 import { useState } from 'react';
 import Cookies from 'js-cookie';
 import debounce from 'lodash/debounce';
+import LossProgressions from '../components/LossProgressions';
 
 const Strategy = () => {
   const [bankroll, setBankroll] = useState(
@@ -42,14 +44,19 @@ const Strategy = () => {
         <Link to={previous} className="px-5">
           {'< Back'}
         </Link>
-        {data.variations && (
+        {data.progressions.length > 0 && (
+          <a href="#progressions" className="px-5">
+            Progressions
+          </a>
+        )}
+        {data.variations.length > 0 && (
           <a href="#variations" className="px-5">
             Variations
           </a>
         )}
-        {data.progressions && (
-          <a href="#progressions" className="px-5">
-            Progressions
+        {data.lossProgressions.length > 0 && (
+          <a href="#loss-progressions" className="px-5">
+            Loss progressions
           </a>
         )}
       </div>
@@ -77,7 +84,7 @@ const Strategy = () => {
             </div>
           )}
           {/* Progressions */}
-          {data.progressions?.length && (
+          {data.progressions?.length > 0 && (
             <>
               <div id="progressions" className="-top-10 relative" />
               <div className="flex flex-col items-center py-4">
@@ -109,11 +116,7 @@ const Strategy = () => {
                         unitCookie={slug}
                         multiplier={progression.multi}
                         win={progression.win}
-                        lossMultiplier={progression.lossMulti}
                         bankroll={bankroll}
-                        showLossMultiText={
-                          progression.showLossMulti ? true : false
-                        }
                       />
                     )
                   )}
@@ -122,7 +125,7 @@ const Strategy = () => {
             </>
           )}
           {/* Variations */}
-          {data.variations.length && (
+          {data.variations?.length > 0 && (
             <>
               <div id="variations" className="-top-10 relative" />
               <div className="flex flex-col w-full justify-center items-center text-center mt-10">
@@ -136,6 +139,29 @@ const Strategy = () => {
                       key={variation.name}
                     />
                   ))}
+                </div>
+              </div>
+            </>
+          )}
+          {data.lossProgressions?.length > 0 && (
+            <>
+              <div
+                id="loss-progressions"
+                className="-top-10 relative"
+              />
+              <div className="flex flex-col w-full justify-center items-center text-center mt-10">
+                <h3 className="text-3xl text-green font-semibold">
+                  Additional progressions
+                </h3>
+                <div className="grid grid-cols-1 lg:grid-cols-2">
+                  {data.lossProgressions.map(
+                    (lossProgression: LossProgression) => (
+                      <LossProgressions
+                        lossProgression={lossProgression}
+                        key={lossProgression.text}
+                      />
+                    )
+                  )}
                 </div>
               </div>
             </>

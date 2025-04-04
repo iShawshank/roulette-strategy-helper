@@ -10,7 +10,6 @@ interface IProps {
   tableName: string;
   multiplier: number;
   win: number;
-  lossMultiplier?: number;
   bankroll: number;
   unitCookie: string;
   additionalUnit?: number;
@@ -18,14 +17,12 @@ interface IProps {
   tenRows?: boolean;
   context?: string;
   showGuide?: boolean;
-  showLossMultiText?: boolean;
 }
 
 const MartingaleTable = ({
   tableName,
   multiplier = 1,
   win = 1,
-  lossMultiplier = 2,
   bankroll,
   unitCookie,
   additionalUnit = 0,
@@ -33,7 +30,6 @@ const MartingaleTable = ({
   showProfit = true,
   context = '/roulette-strategy-helper/',
   showGuide = false,
-  showLossMultiText = false,
 }: IProps) => {
   const lossCookie = `${unitCookie}-loss-multi`;
   const [lossMulti, setLossMulti] = useState(
@@ -94,18 +90,16 @@ const MartingaleTable = ({
         </Link>
       )}
       <div className="flex gap-4 lg:gap-10">
-        {showLossMultiText && (
-          <div className="flex gap-4">
-            <label htmlFor="loss">Loss Multiplier</label>
-            <input
-              type="text"
-              name="loss"
-              id="loss"
-              onChange={debounce(handleLossMultiplieChange, 500)}
-              placeholder={lossMulti.toString()}
-            />
-          </div>
-        )}
+        <div className="flex gap-4">
+          <label htmlFor="loss">Loss Multiplier</label>
+          <input
+            type="text"
+            name="loss"
+            id="loss"
+            onChange={debounce(handleLossMultiplieChange, 500)}
+            placeholder={lossMulti.toString()}
+          />
+        </div>
         <div className="flex gap-4">
           <label htmlFor="unit">Unit size</label>
           <input

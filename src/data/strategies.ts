@@ -21,11 +21,17 @@ export interface Strategy {
   progressions: Progression[];
 }
 
+export interface LossProgression {
+  text: string;
+  image?: string;
+  description?: string;
+}
+
 export const stratData = {
   '9-streets': {
     name: '9 streets',
     description:
-      '27 number system where you place 9 street bets (covering 3 numbers each). Basic layout is called 123 where you place a street bet on the 1st, 2nd, and 3rd street in each dozen.',
+      '27 number system where you place 9 street bets (covering 3 numbers each). Basic layout is called 123 where you place a street bet on the 1st, 2nd, and 3rd street in each dozen. If you flatbet, it will take 3 hits to recover 1 loss. Suggested recovery is to double on loss.',
     videoLink: '7sHn9Of1vCY?si=tGXD8pyNMtO9rd8k',
     baseImg: '/roulette-strategy-helper/strats/9-streets/123.png',
     variations: [
@@ -93,14 +99,42 @@ export const stratData = {
         name: '5 Double Streets',
         multi: 5,
         win: 1,
-        lossMulti: 2,
-        showLossMulti: true,
       },
     ],
   },
   'one-to-one': {},
   'one-to-one-plus-one': {},
-  'mickey-mouse': {},
+  'mickey-mouse': {
+    name: 'Mickey Mouse',
+    baseImg: '/roulette-strategy-helper/strats/mickey-mouse/mm1.png',
+    description:
+      '20 number system where you place your bet on 20 individual numbers and then progressively add more units on loss. Any win in the first 4 progressions allows you to fully reset back to first progression.',
+    videoLink: 'wjdpLD2cCxU?si=UDA9jkaERHmU9N1x',
+    lossProgressions: [
+      {
+        image:
+          '/roulette-strategy-helper/strats/mickey-mouse/mm2.png',
+        text: '2nd progression',
+        description: 'Rebet and add corners as shown',
+      },
+      {
+        image:
+          '/roulette-strategy-helper/strats/mickey-mouse/mm3.png',
+        text: '3rd progression',
+        description:
+          'Rebet and add the last missing corners as shown',
+      },
+      {
+        image:
+          '/roulette-strategy-helper/strats/mickey-mouse/mm4.png',
+        text: '4th progression',
+        description:
+          'From here on out keep doubling the bet each loss until you win. On win, see how close you are to recovering. In most cases you can reset to the 2nd or third progression',
+      },
+    ],
+    progressions: [],
+    variations: [],
+  },
   'spread-your-streets': {},
   'spread-eagle': {},
   cya: {},
