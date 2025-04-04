@@ -44,17 +44,17 @@ const Strategy = () => {
         <Link to={previous} className="px-5">
           {'< Back'}
         </Link>
-        {data.progressions.length > 0 && (
+        {data.progressions?.length > 0 && (
           <a href="#progressions" className="px-5">
             Progressions
           </a>
         )}
-        {data.variations.length > 0 && (
+        {data.variations?.length > 0 && (
           <a href="#variations" className="px-5">
             Variations
           </a>
         )}
-        {data.lossProgressions.length > 0 && (
+        {data.lossProgressions?.length > 0 && (
           <a href="#loss-progressions" className="px-5">
             Loss progressions
           </a>
